@@ -1,0 +1,21 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata: 
+  name: ingress-host
+  annotations:
+    kubernetes.io/ingress.class: nginx
+spec:
+  rules:
+  - http:
+      paths:
+      - pathType: ImplementationSpecific
+        path: /hello
+        backend:
+          service:
+            name: hello-go
+            port: 
+              number: 80
+  tls:
+  - hosts:
+    - ingress-host.example.com
+    secretName: ingress-host-tls

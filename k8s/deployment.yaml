@@ -1,0 +1,68 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hello-go
+  labels:
+    app: hello-go
+spec:
+  selector:
+    matchLabels:
+      app: hello-go
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: hello-go
+    spec:
+      containers:
+        - name: hello-go
+          image: eddieforstudies/hello-go:v3
+          # startupProbe:
+          #   httpGet:
+          #     path: /health
+          #     port: 80
+          #     scheme: HTTP
+          #   initialDelaySeconds: 10
+          #   periodSeconds: 10
+          #   successThreshold: 1
+          #   failureThreshold: 3
+          # livenessProbe:
+          #   httpGet:
+          #     path: /health
+          #     port: 80
+          #   # initialDelaySeconds: 15
+          #   periodSeconds: 5
+          #   # successThreshold: 1
+          #   failureThreshold: 1
+          #   timeoutSeconds: 1
+          # readinessProbe:
+          #   httpGet:
+          #     path: /health
+          #     port: 80
+          #   periodSeconds: 5
+          #   # successThreshold: 1
+          #   failureThreshold: 1
+          #   timeoutSeconds: 1
+          envFrom:
+            - configMapRef:
+                name: hello-go-env
+            # - secretRef:
+            #     name: hello-go-secret
+          # env:
+          #   - name: PORT
+          #     valueFrom:
+          #       configMapKeyRef:
+          #         name: hello-go-env
+          #         key: PORT
+          #   - name: MESSAGE
+          #     valueFrom:
+          #       configMapKeyRef:
+          #         name: hello-go-env
+          #         key: MESSAGE
+          resources:
+            requests:
+              cpu: "0.1"
+              memory: 20Mi
+            limits:
+              cpu: "0.1"
+              memory: 50Mi

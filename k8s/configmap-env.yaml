@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: hello-go-env
+data:
+  MESSAGE: "Hello Edcleidsonkub!"
+  PORT: "8080"

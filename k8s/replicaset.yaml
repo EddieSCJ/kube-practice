@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: hello-go
+  labels:
+    app: hello-go
+spec:
+  selector:
+    matchLabels:
+      app: hello-go
+  replicas: 5
+  template:
+    metadata:
+      labels:
+        app: hello-go
+    spec:
+      containers:
+        - name: hello-go
+          image: eddieforstudies/hello-go:v3
+          ports:
+            - containerPort: 80
+              hostPort: 80
+              protocol: TCP
+              name: hello-go
+          env:
+            - name: PORT
+              value: "8080"
+            - name: MESSAGE
+              value: "Hello Edcleidson!"
+          resources:
+            requests:
+              cpu: 100m
+              memory: 100Mi
+            limits:
+              cpu: 100m
+              memory: 100Mi
